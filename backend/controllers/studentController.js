@@ -37,6 +37,7 @@ exports.register = catchAsync(async (req, res, next) => {
     });
   }
 
+  user.admissionStatus=true;
   const newUser = await User.create(user);
   newUser.password = undefined;
 

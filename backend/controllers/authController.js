@@ -36,7 +36,8 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!isPasswordValid) {
     return next(new AppError('Enter the correct password'));
   }
-
+  console.log(user);
+  
   const token = await signToken(user._id, user.roles, user.name ,user.email,user.admissionStatus);
   
   res.status(201).json({

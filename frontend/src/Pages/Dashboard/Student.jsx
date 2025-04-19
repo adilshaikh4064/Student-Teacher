@@ -12,6 +12,7 @@ function Student() {
   const [teachers, setTeachers] = useState([]);
   const [spinner, setSpinner] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [error,setError]=useState("");
 
   const fetchTable = async () => {
     try {
@@ -168,9 +169,9 @@ function Student() {
           {/* message modal */}
           {showModal && (
             <div className="fixed inset-0 z-50 overflow-y-auto">
-              <div className="flex items-center justify-center min-h-screen bg-gray-500 bg-opacity-90 transition-opacity">
-                <div className="bg-white dark:bg-slate-800 dark:text-white rounded-lg shadow-lg w-full max-w-md mx-4 sm:mx-auto">
-                  <div className="border-b border-gray-200 p-4">
+              <div className="flex items-center justify-center min-h-screen transition-opacity bg-gray-500 bg-opacity-90">
+                <div className="w-full max-w-md mx-4 bg-white rounded-lg shadow-lg dark:bg-slate-800 dark:text-white sm:mx-auto">
+                  <div className="p-4 border-b border-gray-200">
                     <h5 className="text-lg font-medium text-gray-900 dark:text-white">
                       Message Modal
                     </h5>
@@ -186,10 +187,10 @@ function Student() {
                         placeholder="Your Message Goes Here"
                       />
                     </div>
-                    <div className="flex justify-end border-t border-gray-200 p-4">
+                    <div className="flex justify-end p-4 border-t border-gray-200">
                       <button
                         type="button"
-                        className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+                        className="px-4 py-2 text-gray-700 bg-gray-300 rounded hover:bg-gray-400"
                         onClick={() => setShowModal(false)}
                       >
                         Close
@@ -197,7 +198,7 @@ function Student() {
                       <input
                         type="submit"
                         value="Send Message"
-                        className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        className="px-4 py-2 ml-2 text-white bg-blue-500 rounded hover:bg-blue-600"
                       // onClick={() => setShowModal(false)}
                       />
                     </div>
@@ -214,13 +215,13 @@ function Student() {
           />
           <div className="px-4 dark:bg-slate-900 dark:text-white">
             {/* info table */}
-            <div className="container mx-auto py-4">
-              <h2 className="text-2xl font-bold mb-2">
+            <div className="container py-4 mx-auto">
+              <h2 className="mb-2 text-2xl font-bold">
                 Your Upcoming Lectures Details
               </h2>
               <hr className="mt-0 mb-4" />
               {!lectureDetails.length == 0 ? (
-                <table className="table-auto w-full">
+                <table className="w-full table-auto">
                   <thead>
                     <tr>
                       <th className="px-4 py-2">Sr.No</th>
@@ -234,15 +235,15 @@ function Student() {
                     {lectureDetails.map((detail, index) => (
                       <tr
                         key={index}
-                        className="bg-gray-100 dark:bg-slate-800 text-center hover:dark:bg-slate-950"
+                        className="text-center bg-gray-100 dark:bg-slate-800 hover:dark:bg-slate-950"
                       >
-                        <td className="border px-4 py-2">{index + 1}</td>
-                        <td className="border px-4 py-2">{detail.name}</td>
-                        {/* <td className="border px-4 py-2">{}</td> */}
-                        <td className="border px-4 py-2">
+                        <td className="px-4 py-2 border">{index + 1}</td>
+                        <td className="px-4 py-2 border">{detail.name}</td>
+                        {/* <td className="px-4 py-2 border">{}</td> */}
+                        <td className="px-4 py-2 border">
                           {formatDate(detail.scheduleAt)}
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="px-4 py-2 border">
                           {formatTime(detail.scheduleAt)}
                         </td>
                       </tr>
@@ -250,18 +251,18 @@ function Student() {
                   </tbody>
                 </table>
               ) : (
-                <h1 className="text-center text-xl">No Upcoming Lectures</h1>
+                <h1 className="text-xl text-center">No Upcoming Lectures</h1>
               )}
             </div>
             {/* card container */}
-            <div className="container mx-auto py-4">
+            <div className="container py-4 mx-auto">
               <div className="pagecontent">
-                <h2 className="text-2xl font-bold mb-2">All teachers</h2>
+                <h2 className="mb-2 text-2xl font-bold">All teachers</h2>
                 <hr className="mt-0 mb-4" />
                 <div className="flex flex-wrap justify-center gap-4">
                   {teachers.map((teacher, index) => (
                     <div
-                      className="rounded max-w-80 border shadow-lg p-4 flex flex-col gap-6 justify-between dark:text-white"
+                      className="flex flex-col justify-between gap-6 p-4 border rounded shadow-lg max-w-80 dark:text-white"
                       key={index}
                     >
                       <div>
@@ -270,14 +271,14 @@ function Student() {
                           className="w-full"
                           alt="..."
                         />
-                        <div className="px-6 py-4 flex flex-col gap-4 ">
-                          <h5 className="font-bold text-xl mb-2">
+                        <div className="flex flex-col gap-4 px-6 py-4 ">
+                          <h5 className="mb-2 text-xl font-bold">
                             Name: {teacher.name}
                           </h5>
-                          <p className="text-gray-700 text-base dark:text-gray-400">
+                          <p className="text-base text-gray-700 dark:text-gray-400">
                             Subject: {teacher.subject}
                           </p>
-                          <p className="text-gray-700 text-base dark:text-gray-400">
+                          <p className="text-base text-gray-700 dark:text-gray-400">
                             Email: {teacher.email}
                           </p>
                           {/* Display scheduleAt for each appointment */}
@@ -288,7 +289,7 @@ function Student() {
                                   key={appointmentIndex}
                                   className="flex flex-col gap-4"
                                 >
-                                  <p className="text-gray-700 text-base dark:text-gray-400">
+                                  <p className="text-base text-gray-700 dark:text-gray-400">
                                     Timing:{" "}
                                     {new Date(
                                       appointment.scheduleAt
@@ -299,7 +300,7 @@ function Student() {
                                   </p>
                                   <div className="">
                                     <button
-                                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                      className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
                                       onClick={() =>
                                         handleBookAppointment(
                                           appointment._id,
@@ -322,7 +323,7 @@ function Student() {
                       </div>
                       <div className="">
                         <button
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded border w-full"
+                          className="w-full px-4 py-2 font-bold text-white bg-blue-500 border rounded hover:bg-blue-700"
                           type="button"
                           data-bs-toggle="modal"
                           data-bs-target="#messageModal"

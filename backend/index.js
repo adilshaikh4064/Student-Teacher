@@ -44,6 +44,7 @@ app.use("/api/v1/messages", messageRoutes);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log("App listening on port " + port);
-});
+// app.listen(port, () => {
+//   console.log("App listening on port " + port);
+// });
+app.listen(3000);
